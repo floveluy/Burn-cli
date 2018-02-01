@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "bin": {
-    "burn-init": "bin/project.js"
+    "burn-cli": "bin/project.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

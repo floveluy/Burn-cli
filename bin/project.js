@@ -4,4 +4,4 @@
 
 const BurnInit = require('../init');
 
-new BurnInit().run(process.cwd(), process.argv.slice(2));
+new BurnInit(process.cwd(), process.argv.slice(2)).run();

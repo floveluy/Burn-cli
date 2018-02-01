@@ -1,0 +1,13 @@
+{
+    "ignore": [
+        "**/*.test.js",
+        "**/*.spec.js",
+        ".git",
+        "node_modules"
+    ],
+    "watch": [
+        "app"
+    ],
+    "exec": "node app/start.js",
+    "ext": "js"
+}
