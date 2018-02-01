@@ -74,7 +74,7 @@ module.exports = class BurnInit {
             "author": "",
             "license": "ISC",
             "dependencies": {
-                "burnjs": "0.0.21",
+                "burnjs": "^1.0.0",
                 "nodemon": "^1.14.11"
             }
         }
