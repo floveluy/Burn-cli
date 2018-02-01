@@ -1,8 +1,8 @@
 {
-  "name": "burn-blog",
-  "version": "1.0.0",
+  "name": "burn-cli",
+  "version": "0.0.10",
   "description": "",
-  "main": "index.js",
+  "main": "init.js",
   "bin": {
     "burn-cli": "bin/project.js"
   },
@@ -13,6 +13,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "burnjs": "^0.0.21"
+    "burnjs": "^1.0.0"
   }
 }
