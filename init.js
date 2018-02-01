@@ -14,8 +14,27 @@ module.exports = class BurnInit {
         fs.mkdirSync(des);
         this.readDir(this.appPath, project, currentDir);
 
-        fs.copyFileSync(__dirname + '/package.json', currentDir + '/' + project + '/package.json');
-        fs.copyFileSync(__dirname + '/package-lock.json', currentDir + '/' + project + '/package-lock.json');
+        this.write(currentDir, project);
+    }
+
+    write(currentDir, project) {
+        const json = {
+            "name": project,
+            "version": "1.0.0",
+            "description": "",
+            "main": "app/start",
+            "scripts": {
+                "test": "echo \"Error: no test specified\" && exit 1"
+            },
+            "keywords": [],
+            "author": "",
+            "license": "ISC",
+            "dependencies": {
+                "burnjs": "0.0.21"
+            }
+        }
+
+        fs.writeFileSync(currentDir + '/' + project + '/package.json', JSON.stringify(json));
     }
 
     readDir(path, project, currentDir) {
