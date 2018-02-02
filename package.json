@@ -1,18 +1,19 @@
 {
   "name": "burn-cli",
-  "version": "0.0.10",
+  "version": "0.0.12",
   "description": "",
   "main": "init.js",
   "bin": {
     "burn-cli": "bin/project.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "./node_modules/nodemon/bin/nodemon.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "burnjs": "^1.0.0"
+    "burnjs": "^1.0.3"
   }
 }

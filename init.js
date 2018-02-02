@@ -2,23 +2,43 @@ const fs = require('fs');
 const logger = require('./lib/logger');
 
 const commandMap = {
-    '-init': '创建新项目，example：burn-cli -init BurnProject-example'
+    '-init': '创建新项目，example：burn-cli -init BurnProject-example',
+    '-init-ts': '创建新一个ts项目，example：burn-cli -init-ts BurnProject-example'
 }
 
 module.exports = class BurnInit {
 
     constructor(currentDir, argv) {
-        this.appPath = __dirname + '/app/';
+        this.appPath = __dirname + '/js/';
         this.currentDir = currentDir;
         this.argv = argv;
         this.project = argv[1];
         this.type = argv[0];
         this.files = [];
         this.dirs = [];
+        this.appVersion = '1.0.4'
         this.command = {
-            "-init": '-init'
+            "-init": '-init',
+            "-init-ts": "-init-ts"
         }
         this.logger = new logger;
+        this.pkg = {
+            "name": this.project,
+            "version": "1.0.0",
+            "description": "",
+            "main": "app/start",
+            "scripts": {
+                "test": "echo \"Error: no test specified\" && exit 1",
+                "dev": "./node_modules/nodemon/bin/nodemon.js"
+            },
+            "keywords": [],
+            "author": "",
+            "license": "ISC",
+            "dependencies": {
+                "burnjs": this.appVersion,
+                "nodemon": "^1.14.11"
+            }
+        }
 
     }
     /**
@@ -35,7 +55,7 @@ module.exports = class BurnInit {
         if (!handler) {
             this.logger.blue('命令格式:burn-cli [command] [project-dir]');
             const sup = Object.keys(this.command).map((cm) => {
-                return cm + '\n' + commandMap[cm] + '\n'
+                return cm + '\n' + commandMap[cm] + '\n\n'
             })
 
             this.logger.green(`支持的命令(command)：\n\n${sup}`);
@@ -49,35 +69,65 @@ module.exports = class BurnInit {
         this[handler]();
     }
 
+    '-init-ts'() {
+        fs.mkdirSync(this.destination());//构建project
+        fs.mkdirSync(this.destination() + '/ts');//构建下的app
+        this.cpySrc(__dirname + '/ts/');//复制app下的所有内容到目标目录
+        this.writeTs();
+        fs.renameSync(this.destination() + '/ts', this.destination() + '/src');
+    }
+
     '-init'() {
         fs.mkdirSync(this.destination());//构建project
-        fs.mkdirSync(this.destination() + '/app');//构建下的app
-        this.cpySrc();//复制app下的所有内容到目标目录
+        fs.mkdirSync(this.destination() + '/js');//构建下的app
+        this.cpySrc(this.appPath);//复制app下的所有内容到目标目录
         this.write();
+        fs.renameSync(this.destination() + '/js', this.destination() + '/app');
     }
 
     output(des, json) {
         fs.writeFileSync(this.destination() + '/' + des, JSON.stringify(json, null, 4));
     }
 
-    write() {
-        const pkg = {
-            "name": this.project,
-            "version": "1.0.0",
-            "description": "",
-            "main": "app/start",
-            "scripts": {
-                "test": "echo \"Error: no test specified\" && exit 1",
-                "dev": "./node_modules/nodemon/bin/nodemon.js"
-            },
-            "keywords": [],
-            "author": "",
-            "license": "ISC",
-            "dependencies": {
-                "burnjs": "^1.0.0",
-                "nodemon": "^1.14.11"
-            }
+    writeTs() {
+        const nodemon = {
+            "ignore": [
+                "**/*.test.ts",
+                "**/*.spec.ts",
+                ".git",
+                "node_modules"
+            ],
+            "watch": [
+                "src"
+            ],
+            "exec": "tsc&&node app/start.js",
+            "ext": "ts"
         }
+        const ts = {
+            "compilerOptions": {
+                "module": "commonjs", //指定生成哪个模块系统代码
+                "target": "es2017", //目标代码类型
+                "noImplicitAny": true, //在表达式和声明上有隐含的'any'类型时报错。
+                "sourceMap": false, //用于debug   
+                // "rootDir": "./build", //仅用来控制输出的目录结构--outDir。
+                "outDir": "./app", //重定向输出目录。   
+                "watch": false, //在监视模式下运行编译器。会监视输出文件，在它们改变时重新编译。
+                "noUnusedLocals": true,
+                "strict": true,
+                "experimentalDecorators": true
+            },
+            "include": [
+                "src/**/*",
+                // "test/**/*"
+            ]
+        }
+
+        this.output("package.json", this.pkg);
+        this.output("nodemon.json", nodemon);
+        this.output("tsconfig.json", ts);
+    }
+
+    write() {
         const nodemon = {
             "ignore": [
                 "**/*.test.js",
@@ -91,12 +141,12 @@ module.exports = class BurnInit {
             "exec": "node app/start.js",
             "ext": "js"
         }
-        this.output("package.json", pkg);
+        this.output("package.json", this.pkg);
         this.output("nodemon.json", nodemon);
     }
 
-    cpySrc() {
-        this.readDir(this.appPath);
+    cpySrc(appPath) {
+        this.readDir(appPath);
         this.dirs.forEach((des) => {
             fs.mkdirSync(des);
         })
@@ -125,7 +175,5 @@ module.exports = class BurnInit {
         })
     }
 }
-
-
 
 

@@ -10,6 +10,7 @@ class Index extends Controller {
         </ul>
         `;
         this.ctx.set('Content-Type', 'text/html;charset="utf-8"');
+
     }
 }
 
