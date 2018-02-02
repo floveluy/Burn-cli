@@ -1,4 +1,4 @@
-import Burn from 'burnjs';
+import { Burn } from 'burnjs';
 
 const app = new Burn;
 

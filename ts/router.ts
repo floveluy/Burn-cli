@@ -1,6 +1,5 @@
 
-
-module.exports = (app: any) => {
+export default (app: any) => {
 
     const { controller } = app;
     return {

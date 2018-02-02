@@ -1,6 +1,6 @@
 {
   "name": "burn-cli",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "",
   "main": "init.js",
   "bin": {
@@ -14,6 +14,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "burnjs": "^1.0.3"
+    "burnjs": "^1.0.5"
   }
 }

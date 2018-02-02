@@ -1,10 +1,9 @@
 import Burn from 'burnjs';
 
-class user extends Burn.Controller {
+export default class user extends Burn.Controller {
 
     async index() {
 
     }
 }
 
-module.exports = user;
