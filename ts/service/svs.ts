@@ -1,9 +1,14 @@
-import Burn from 'burnjs';
+import { Service } from "burnjs";
 
-export default class user extends Burn.Service {
-
-    async index() {
-
+export default class svs extends Service {
+    index() {
+        return 'this is service'
     }
+
 }
 
+declare module 'burnjs' {
+    export interface FService {
+        svs: svs
+    }
+}
