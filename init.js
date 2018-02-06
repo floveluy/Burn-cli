@@ -16,7 +16,7 @@ module.exports = class BurnInit {
         this.type = argv[0];
         this.files = [];
         this.dirs = [];
-        this.appVersion = '1.0.12'
+        this.appVersion = '1.0.13'
         this.command = {
             "-init": '-init',
             "-init-ts": "-init-ts"
@@ -125,6 +125,7 @@ module.exports = class BurnInit {
         this.output("package.json", this.pkg);
         this.output("nodemon.json", nodemon);
         this.output("tsconfig.json", ts);
+        this.output('.gitignore', 'node_modules');
     }
 
     write() {

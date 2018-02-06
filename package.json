@@ -1,6 +1,6 @@
 {
   "name": "burn-cli",
-  "version": "0.0.15",
+  "version": "0.0.17",
   "description": "",
   "main": "init.js",
   "bin": {
