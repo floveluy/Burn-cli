@@ -16,7 +16,7 @@ module.exports = class BurnInit {
         this.type = argv[0];
         this.files = [];
         this.dirs = [];
-        this.appVersion = '1.0.13'
+        this.appVersion = '1.0.16'
         this.command = {
             "-init": '-init',
             "-init-ts": "-init-ts"
