@@ -100,7 +100,7 @@ module.exports = class BurnInit {
             "watch": [
                 "src"
             ],
-            "exec": "tsc&&node app/start.js",
+            "exec": "tsc&&node  NODE_ENV=development app/start.js",
             "ext": "ts"
         }
         const ts = {
@@ -114,6 +114,7 @@ module.exports = class BurnInit {
                 "watch": false, //在监视模式下运行编译器。会监视输出文件，在它们改变时重新编译。
                 "noUnusedLocals": true,
                 "strict": true,
+                "strictPropertyInitialization": false,//不限制属性初始化
                 "experimentalDecorators": true
             },
             "include": [
