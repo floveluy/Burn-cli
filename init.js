@@ -100,7 +100,7 @@ module.exports = class BurnInit {
             "watch": [
                 "src"
             ],
-            "exec": "tsc&&node  NODE_ENV=development app/start.js",
+            "exec": "tsc&&NODE_ENV=development node app/start.js",
             "ext": "ts"
         }
         const ts = {
